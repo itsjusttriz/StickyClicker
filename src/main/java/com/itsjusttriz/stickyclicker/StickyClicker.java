@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 public class StickyClicker
 {
     public static final String MOD_ID = "sticky_clicker";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public StickyClicker()
     {
