@@ -12,13 +12,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-@Mod(StickyClicker.MOD_ID)
-public class StickyClicker
+@Mod(StickyClickerCore.MOD_ID)
+public class StickyClickerCore
 {
-    public static final String MOD_ID = "sticky_clicker";
+    public static final String MOD_ID = "stickyclicker";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public StickyClicker()
+    public StickyClickerCore()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
