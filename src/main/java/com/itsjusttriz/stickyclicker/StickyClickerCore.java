@@ -1,53 +1,70 @@
 package com.itsjusttriz.stickyclicker;
 
+import com.itsjusttriz.stickyclicker.commands.StickyClickerCommands;
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraft.world.InteractionHand;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+
+import java.util.HashMap;
 
 @Mod(StickyClickerCore.MOD_ID)
 public class StickyClickerCore
 {
     public static final String MOD_ID = "stickyclicker";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger logger = LogUtils.getLogger();
+
+    HashMap<String, String> KEY_MAP = new HashMap<>()
+    {{
+        put("left", "key.attack");
+        put("right", "key.use");
+    }};
+
+    private static String keyBind = null;
 
     public StickyClickerCore()
     {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEventBus.addListener(this::commonSetup);
-
         MinecraftForge.EVENT_BUS.register(this);
-
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    public static String getKeyBinding() {
+        return keyBind;
+    }
 
+    public static void setKeyBinding(String keyBinding) {
+        keyBind = keyBinding;
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
-
+        logger.info("Loading StickyClicker...");
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
 
+    @SubscribeEvent
+    public void onCommandsRegister(RegisterClientCommandsEvent event)
+    {
+        new StickyClickerCommands(event.getDispatcher());
+    }
+
+    @SubscribeEvent
+    public void onTick(TickEvent.PlayerTickEvent event)
+    {
+        switch (keyBind)
+        {
+            case "left":
+                break;
+            case "right":
+                break;
+            default:
+                break;
         }
     }
 }
